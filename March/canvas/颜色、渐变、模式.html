@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas(20200308)</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="1920" height="500"></canvas>
+    <script>
+        const canvas = document.querySelector('#myCanvas');
+        if (canvas && canvas.getContext) {
+            let cxt = canvas.getContext('2d');
+            // 创建线性渐变
+            // context.createLinearGradient(x0, y0, x1, y1);
+            // x0	渐变开始点的 x 坐标
+            // y0	渐变开始点的 y 坐标
+            // x1	渐变结束点的 x 坐标
+            // y1	渐变结束点的 y 坐标
+            let gld = cxt.createLinearGradient(0, 0, 150, 70);
+            gld.addColorStop(0, "#ff0000");
+            gld.addColorStop(1, '#00ff00');
+            cxt.fillStyle = gld;
+            cxt.fillRect(0, 0, 150, 75);
+
+            // 创建放射状/环形的渐变
+            // context.createRadialGradient(x0, y0, r0, x1, y1, r1);
+            // x0	渐变的开始圆的 x 坐标
+            // y0	渐变的开始圆的 y 坐标
+            // r0	开始圆的半径
+            // x1	渐变的结束圆的 x 坐标
+            // y1	渐变的结束圆的 y 坐标
+            // r1	结束圆的半径
+            let grd = cxt.createRadialGradient(300, 100, 0, 300, 100, 50);
+            grd.addColorStop(0, '#ff0000');
+            grd.addColorStop(1, '#00ff00');
+            cxt.fillStyle = grd;
+            cxt.beginPath();
+
+
+            // 创建一个圆形
+            // context.arc(x, y, r, sAngle, eAngle, counterclockwise);
+            // x	圆的中心的 x 坐标。
+            // y	圆的中心的 y 坐标。
+            // r	圆的半径。
+            // sAngle	起始角，以弧度计。（弧的圆形的三点钟位置是 0 度）。
+            // eAngle	结束角，以弧度计。
+            // counterclockwise	可选。规定应该逆时针还是顺时针绘图。False = 顺时针，true = 逆时针。
+            cxt.arc(300, 100, 50, 0, Math.PI * 2, true);
+            cxt.closePath();
+            cxt.fill();
+
+            let img = new Image();
+
+            img.src = 'https://developers.google.com/web/images/web-fundamentals-icon192x192_96.png?hl=zh-cn'
+            img.onload = function () {
+                // 在指定的方向上重复指定的元素
+                // context.createPattern(image, "repeat|repeat-x|repeat-y|no-repeat");
+                // image	规定要使用的图片、画布或视频元素。
+                // repeat	默认。该模式在水平和垂直方向重复。
+                // repeat - x	该模式只在水平方向重复。
+                // repeat - y	该模式只在垂直方向重复。
+                // no - repeat	该模式只显示一次（不重复）。
+                const pattern = cxt.createPattern(img, 'repeat');
+                cxt.fillStyle = pattern;
+                cxt.fillRect(100, 200, 100, 400)
+            }
+        }
+        const url = canvas.toDataURL();
+        // console.log(url)
+    </script>
+</body>
+
+</html>

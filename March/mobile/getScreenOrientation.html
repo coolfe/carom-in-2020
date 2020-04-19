@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>getScreenOrientation(20200307)</title>
+</head>
+
+<body>
+    <script>
+        function getScreenOrientation() {
+            let orientation = '';
+            if ('orientation' in window) {
+                orientation = (window.orientation == 90 || window.orientation == -90) ? 'landscape or' : 'portrait or';
+            } else {
+                if (window.screen) {
+                    const width = screen.width;
+                    const height = screen.height; 
+                    orientation = width > height ? 'landscape w' : 'portrait w';
+                }
+            }
+            console.log(orientation);
+            return orientation;
+        }
+
+        window.onload = getScreenOrientation;
+        window.onorientationchange = getScreenOrientation;
+    </script>
+</body>
+
+</html>

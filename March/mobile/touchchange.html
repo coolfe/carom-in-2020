@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>touchchange(20200307)</title>
+    <style>
+        #ball {
+            background: pink;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="ball"></div>
+    <div id="text"></div>
+    <script>
+        const text = document.querySelector('#text');
+        const ball = document.querySelector('#ball');
+        function initEvent() {
+            ball.addEventListener('touchstart', updateInfo, false);
+            ball.addEventListener('touchmove', updateInfo, false);
+            ball.addEventListener('touchend', updateInfo, false);
+            ball.addEventListener('touchcancel', updateInfo, false);
+        }
+        function updateInfo(event) {
+            event.preventDefault();
+            text.innerHTML += `${event.currentTarget} + ${event.type} </br>`;
+        }
+        window.onload = initEvent;
+    </script>
+</body>
+
+</html>
