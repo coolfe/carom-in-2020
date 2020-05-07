@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        Vue.prototype.$axios = axios;
+        let App = {
+            template: `<div><button @click="sendAjax">发送请求</button></div>`,
+            methods: {
+                sendAjax() {
+                    this.$axios.defaults.baseURL = 'http://127.0.0.1:8888';
+                    let q1 = this.$axios.get('/');
+                    let q2 = this.$axios.post('/add');
+                    this.$axios.all([q1, q2]).then(this.$axios.spread((res1, res2) => {
+                        console.log(res1, res2);
+                    })).catch(err => {
+                        console.log(err)
+                    })
+                    // this.$axios.get('').then(res => {
+                    //     console.log(res);
+                    // }).catch(err => {
+                    //     console.log(err);
+                    // })
+                }
+            }
+        }
+        new Vue({
+            el: '#app',
+            template: `<App />`,
+            components: {
+                App
+            }
+        })
+    </script>
+</body>
+
+</html>

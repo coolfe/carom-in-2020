@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        {{msg | rever}}
+        <myslot>
+            <h2 slot="blue">???</h2>
+        </myslot>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script>
+        Vue.component('myslot', {
+            template: `<button type="submit">
+                <slot name="blue" ></slot>
+            </button>`
+        })
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    msg: 'xxx'
+                }
+            },
+            filters: {
+                rever(a) {
+                    return a + '2211'
+                }
+            },
+            methods: {
+
+            },
+            watch: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

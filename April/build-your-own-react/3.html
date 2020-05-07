@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let nextUnitOfWork = null;
+        function workLoop(deedline) {
+            let shouldYield = false;
+            while (nextUnitOfWork && !shouldYield) {
+                nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
+                shouldYield = deadline.timeRemaining() < 1;
+            }
+            requestIdleCallback(workLoop);
+        }
+
+        requestIdleCallback(workLoop);
+
+        function performUnitOfWork(nextUnitOfWork) {
+            
+        }
+    </script>
+</body>
+
+</html>

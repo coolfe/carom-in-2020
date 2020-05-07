@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/home">首页</router-link>
+        <router-link to="/blog">博客</router-link>
+        <router-view></router-view>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        Vue.use(VueRouter);
+        Vue.prototype.$axios = axios;
+
+        let Home = {
+            template: `<div>我是首页</div>`
+        }
+        let Blog = {
+            data() {
+                return {
+                    loading: false,
+                    post:null,
+                    err: null
+                }
+            },
+            template: `<div>
+                <div v-if="loading">loading</div>
+                <div v-if="err">{{err}}</div>
+                <div v-if="post">{{
+                    post.token
+                }}</div>
+                </div>`,
+            created() {
+                this.fetchData();
+            },
+            watch: {
+                '$router': 'fetchData'
+            },
+            methods: {
+                fetchData() {
+                    this.loading = true;
+                    this.$axios.defaults.baseURL = 'http://127.0.0.1:8888'
+                    this.$axios.get('/', {
+                        a: 1
+                    }).then(res => {
+                        this.loading = false;
+                        this.post = res.data;
+                    }).catch(err => {
+                        this.err = err;
+                    })
+                }
+            }
+        }
+
+        let router = new VueRouter({
+            routes: [
+                {
+                    path: '/home',
+                    component: Home
+                },
+                {
+                    path: '/blog',
+                    component: Blog,
+                }
+            ]
+        })
+        router.beforeEach((to, from, next) => {
+            next();
+        })
+        new Vue({
+            el: '#app',
+            router,
+            created() {
+                // console.log(router,'tt')
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+
+</html>

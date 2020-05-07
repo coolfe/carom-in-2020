@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{msg}}
+        {{array}}
+        <button @click="change">change</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    msg: '111',
+                    array: [{ name: 'jack' }]
+                }
+            },
+            watch: {
+                msg(n, o) {
+                    console.log(n, o)
+                },
+                array: {
+                    deep: true,
+                    handler(n, o) {
+                        console.log(n[0], o[0])
+                    }
+                }
+            },
+            methods: {
+                change() {
+                    this.msg = '222';
+                    this.array[0].name = 'coolfe';
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

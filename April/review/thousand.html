@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1234567 => 1,234,567
+        function exchange(num) {
+            if (!num) return ;
+            if (num.length <= 3) {
+                return num;
+            }
+            const str = `${num}`;
+            console.log(str)
+            // deerchao.cn/tutorials/regex/regex.html#lookaround
+            const s = str.replace(/\d{1,3}(?=(\d{3})+$)/g, (v) => {
+                console.log(v)
+                return `${v},`
+            });
+            return s;
+        }
+        exchange(1234567890)
+    </script>
+</body>
+</html>

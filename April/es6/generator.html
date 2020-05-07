@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function* helloWorldGenerator() {
+            yield 'hello';
+            yield 'world';
+            return 'ending';
+        }
+
+        var hw = helloWorldGenerator();
+
+        hw.next() // { value: 'hello', done: false }
+
+        hw.next() // { value: 'world', done: false }
+
+        hw.next() // { value: 'ending', done: true }
+
+        hw.next() // { value: undefined, done: true }
+
+
+
+
+        /** https://juejin.im/book/5bdc715fe51d454e755f75ef/section/5bdc7198518825171726cfce 
+         * 首先 Generator 函数调用和普通函数不同，它会返回一个迭代器
+        当执行第一次 next 时，传参会被忽略，并且函数暂停在 yield (x + 1) 处，所以返回 5 + 1 = 6
+        当执行第二次 next 时，传入的参数等于上一个 yield 的返回值，如果你不传参，yield 永远返回 undefined。此时 let y = 2 * 12，所以第二个 yield 等于 2 * 12 / 3 = 8
+        当执行第三次 next 时，传入的参数会传递给 z，所以 z = 13, x = 5, y = 24，相加等于 42
+        */
+        function* foo(x) {
+            let y = 2 * (yield (x + 1))
+            let z = yield (y / 3)
+            return (x + y + z)
+        }
+        let it = foo(5)
+        console.log(it.next())   // => {value: 6, done: false}
+        console.log(it.next(12)) // => {value: 8, done: false}
+        console.log(it.next(13)) // => {value: 42, done: true}
+    </script>
+</body>
+
+</html>

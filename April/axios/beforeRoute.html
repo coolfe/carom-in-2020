@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/home">首页</router-link>
+        <router-link :to="{name: 'blog', params:{id: 1}}">博客1</router-link>
+        <router-link :to="{name: 'blog', params:{id: 2}}">博客2</router-link>
+        <router-view></router-view>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        Vue.use(VueRouter);
+        Vue.prototype.$axios = axios;
+        let Home = {
+            template: `<div>我是首页</div>`
+        }
+        let Blog = {
+            data() {
+                return {
+                    loading: false,
+                    post: null,
+                    err: null,
+                    timer: null,
+                    num: 0
+                }
+            },
+            template: `<div>
+                <div >{{num}}</div>
+                <div v-if="loading">loading</div>
+                <div v-if="err">{{err}}</div>
+                <div v-if="post">{{
+                    post.token
+                }}</div>
+                </div>`,
+            created() {
+                // this.fetchData();
+                this.timer = setInterval(() => {
+                    this.num +=1;
+                },1000)
+            },
+            // watch: {
+            //     '$router': 'fetchData'
+            // },
+            beforeRouteEnter(to, from, next) {
+                console.log('enter')
+                axios.get(`http://127.0.0.1:8888/blog/${to.params.id}`).then(res => {
+                    next(vm => {
+                        vm.changeData({ token: 'enter' + to.params.id });
+                    })
+                })
+            },
+            beforeRouteUpdate(to, from, next) {
+                this.post = null;
+                this.$axios.get(`http://127.0.0.1:8888/blog/${to.params.id}`).then(res => {
+                    this.changeData({ token: 'update'+ to.params.id || 'home' });
+                    next();
+                })
+            },
+            beforeRouteLeave(to, from, next) {
+                console.log('离开了');
+                clearInterval(this.timer);
+                next();
+            },
+            methods: {
+                changeData(t) {
+                    this.post = t;
+                },
+                fetchData() {
+                    this.loading = true;
+
+                    this.$axios.get('/', {
+                        a: 1
+                    }).then(res => {
+                        this.loading = false;
+                        this.post = res.data;
+                    }).catch(err => {
+                        this.err = err;
+                    })
+                }
+            }
+        }
+
+        let router = new VueRouter({
+            routes: [
+                {
+                    path: '/home',
+                    component: Home,
+                    name: 'home'
+                },
+                {
+                    path: '/blog/:id',
+                    component: Blog,
+                    name: 'blog'
+                }
+            ]
+        })
+
+        new Vue({
+            el: '#app',
+            router,
+            created() {
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+
+</html>

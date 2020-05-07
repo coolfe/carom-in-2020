@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="ajax.js"></script>
+    <script>
+        $.ajax({
+            type: 'post',
+            url: 'https://jsonplaceholder.typicode.com/posts',
+            data: {
+                title: 'foo',
+                body: 'bar',
+                userId: 1
+            }
+        })
+        $.ajax({
+            url: 'https://jsonplaceholder.typicode.com/posts/1',
+            data: {
+                a: 2
+            }
+        })
+</script>
+</body>
+</html>

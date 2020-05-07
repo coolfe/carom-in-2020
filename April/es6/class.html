@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p {
+            justify-content: space-around;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        class PointEs6 {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+            }
+            static log () {
+                return 1;
+            }
+            // prototype属性
+            toString() {
+                return '(' + this.x + ', ' + this.y + ')';
+            }
+        }
+
+        function PointEs5(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+        PointEs5.prototype = function toString() {
+            return '(' + this.x + ', ' + this.y + ')';
+        }
+
+
+        // test
+        class Point6 extends PointEs6 {
+            constructor(x,y) {
+                super(x,y)
+            }
+        }
+
+        const p6 = new Point6(1,1)
+        // console.log(p6.log()); // Uncaught TypeError: p6.log is not a function
+        console.log(PointEs6.log());
+        
+
+
+        console.log(Object.keys(PointEs6.prototype))
+        console.log(Object.keys(PointEs5.prototype))
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>这是首页</h1>
+    <p><button id="btn">点击发送</button></p>
+    <hr>
+    <iframe src="./iframePage.html" frameborder="0" id ="myframe"></iframe>
+    <script>
+        const iFrame  = document.getElementById('myframe');
+        const btn = document.getElementById('btn');
+        btn.addEventListener('click', () => {
+            // iFrame.onload = function () {
+                console.dir(iFrame);
+                iFrame.contentWindow.postMessage({ data: 1 }, '*');
+            // }
+        })
+        
+    </script>
+</body>
+</html>

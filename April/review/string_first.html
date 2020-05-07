@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 找到 google 的第一个出现一次的字符
+        function find(str) {
+            if (!str) return ;
+            for (let i = 0; i< str.length; i++) {
+                let char = str[i];
+                let reg = new RegExp(char, 'g');
+                const l = str.match(reg).length;
+                if (l === 1) {
+                    console.log(char);
+                    return char;
+                }
+            }
+        } 
+        find('google');
+    </script>
+</body>
+</html>

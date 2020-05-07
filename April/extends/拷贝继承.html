@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let o3 = {
+            gender: '男',
+            grade: '初三',
+            name: '张三'
+        }
+
+        const o4 = JSON.parse(JSON.stringify(o3));
+
+        let o5 = {};
+        for(let i in o3) {
+            o5[i] = o3[i];
+        }
+        
+    </script>
+</body>
+
+</html>

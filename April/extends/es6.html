@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Animal {
+            constructor(name,age) {
+                this.name = name;
+                this.age = age;
+            }
+        }
+
+        class Cat extends Animal {
+            constructor(name, age) {
+                super(name,age)
+            }
+            say() {
+                console.log(this.name, this.age)
+            }
+        }
+
+        const cat = new Cat('222', 1);
+    </script>
+</body>
+
+</html>

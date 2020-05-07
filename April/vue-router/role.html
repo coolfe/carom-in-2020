@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/home">首页</router-link>
+        <router-link to="/blog">博客</router-linke>
+            <router-link to="/login">login</router-link>
+            <a href="javascript:;" @click="clear">退出</a>
+            <router-view></router-view>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"></script>
+    <script>
+        Vue.use(VueRouter);
+
+        let Home = {
+            template: `<div>我是首页</div>`
+        }
+        let Blog = {
+            template: `<div>我是博客</div>`
+        }
+        let Login = {
+            template: `<div><input type="text"/><input type="text"/><button @click="login">login</button></div>`,
+            methods: {
+                login() {
+                    localStorage.setItem('user', 'aa');
+                    this.$router.push({
+                        name: 'blog'
+                    })
+                }
+            }
+        }
+        let Out = {
+            template: `<button>退出</button>`
+        }
+
+        let router = new VueRouter({
+            routes: [
+                {
+                    path: '/',
+                    redirect: '/home'
+                },
+                {
+                    path: '/home',
+                    component: Home
+                },
+                {
+                    path: '/blog',
+                    component: Blog,
+                    name: 'blog',
+                    meta: {
+                        auth: true
+                    }
+                },
+                {
+                    path: '/login',
+                    component: Login
+                },
+                {
+                    path: '/out',
+                    component: Out
+                },
+            ]
+        })
+        router.beforeEach((to, from, next) => {
+            // console.log(to)
+            if (to.meta.auth) {
+                if (localStorage.getItem('user')) {
+                    next();
+                } else {
+                    next({
+                        path: '/login'
+                    })
+                }
+            } else {
+                next();
+            }
+        })
+        new Vue({
+            el: '#app',
+            router,
+            methods: {
+                clear() {
+                    localStorage.removeItem('user');
+                    this.$router.push({
+                        path: '/login'
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

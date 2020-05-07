@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        Vue.prototype.$axios = axios;
+        let App = {
+            data() {
+                return {
+                    file: null,
+                    rate: 0,
+                    source: null,
+                }
+            },
+            template: `<div>
+                    {{rate}}
+                    选择文件：<input type="file" name = 'file' @change = "change" />
+                    <button @click="send">send</button>
+                    <button @click="cancel">cancel</button>
+                    <button @click="resume" >resume</button>
+                </div>`,
+            methods: {
+                send() {
+                    this.$axios.defaults.baseURL = 'http://127.0.0.1:8888/';
+                    const CancelToken = this.$axios.CancelToken;
+                    const source = CancelToken.source();
+                    this.source = source;
+                    let fd = new FormData();
+                    fd.append('file', this.file);
+                    this.$axios.post('upload',fd, {
+                        cancelToken: source.token,
+                        onUploadProgress: (e) => {
+                            const progress = (e.loaded/e.total) * 100;
+                            this.$nextTick(() => {
+                                this.rate = Math.ceil(progress);
+                            })
+                        }
+                    })
+                },
+                change(e) {
+                    this.file = e.target.files[0];
+                },
+                cancel() {
+                    this.source.cancel('取消上传');
+                },
+                resume(e) {
+                    alert('未实现')
+                }
+            }
+        }
+        new Vue({
+            el: '#app',
+            template: `<App/>`,
+            components: {
+                App
+            }
+        })
+    </script>
+</body>
+
+</html>

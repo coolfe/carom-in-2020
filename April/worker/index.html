@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let worker = new Worker('./worker.js');
+        worker.postMessage(40);
+        worker.onmessage = function(event) {
+            let data = event.data;
+            console.log(data)
+        }
+        worker.onerror = function(event) {
+            console.dir(event)
+        }
+    </script>
+</body>
+</html>

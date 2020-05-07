@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <adom></adom>
+        <bdom></bdom>
+        <C></C>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script>
+        var Event = new Vue();
+        var A = {
+            data() {
+                return {
+                    msg: 'a'
+                }
+            },
+            template: `<div>
+                A 组件
+                <button @click="send">传递给 c 组件字符 </button>
+            </div>`,
+            methods: {
+                send() {
+                    Event.$emit('atoc', this.msg)
+                }
+            }
+        }
+        var Bb = {
+            data() {
+                return {
+                    msg: 'b'
+                }
+            },
+            template: `<div>
+                B 组件
+                <button @click="send">传递给 c 组件字符 </button>
+            </div>`,
+            methods: {
+                send() {
+                    Event.$emit('btoc', this.msg)
+                }
+            }
+        }
+        var C = {
+            data() {
+                return {
+                    a:'',
+                    b: ''
+                }
+            },
+            template: `<div>
+                A 组件传递过来： {{a}}
+                B 组件传递过来： {{b}}
+            </div>`,
+            mounted () {
+                Event.$on('atoc', (data) => {
+                    this.a = data;
+                })
+                Event.$on('btoc', (data) => {
+                    this.b = data;
+                })
+            }
+        }
+        new Vue({
+            el: '#app',
+            components: {
+                'adom': A,
+                'bdom': Bb,
+                C
+            }
+        })
+    </script>
+</body>
+
+</html>

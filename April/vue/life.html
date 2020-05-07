@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{msg}}
+        <button @click="change">change</button>
+        <keep-alive>
+            <Test v-if="show"></Test>
+        </keep-alive>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <!-- 
+    beforeCreate
+    created
+    beforeMount
+    mounted
+    beforeUpdate
+    updated
+    activated
+    deactivated
+    beforeDestroy
+    destroyed -->
+    <script>
+        const Test = {
+            template: `<span>212321</span>`,
+
+        }
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    msg: '11',
+                    show: false
+                }
+            },
+            beforeCreate() {
+                console.log(this.msg) // undefined
+            },
+            created() {
+                // 可以操作后端的数据
+                console.log(this.msg)
+            },
+            beforeMount() {
+                // 挂载数据到 DOM 前
+                console.log(document.getElementById('app'));
+            },
+            mounted() {
+                // 挂载数据到 DOM
+                console.log(document.getElementById('app'));
+            },
+            // 更新 DOM 前
+            beforeUpdate() {
+                console.log(document.getElementById('app').innerHTML)
+            },
+            // 更新 DOM 后
+            updated() {
+                console.log(document.getElementById('app').innerHTML)
+            },
+            beforeDestroy() {
+                console.log('beforeDestroy')
+            },
+            destroyed() {
+                console.log('destroy')
+            },
+            activated() {
+                console.log(this, 'ttt1')
+                console.log('激活')
+            },
+            deactivated() {
+                console.log(this, 'ttt2')
+                console.log('停用了')
+            },
+            methods: {
+                change() {
+                    this.msg = 'change';
+                    this.show = !this.show;
+                }
+            },
+            components: {
+                Test
+            }
+        })
+    </script>
+</body>
+
+</html>

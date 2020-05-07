@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let onWatch = (obj, getLogger, setBind) => {
+            let handler = {
+                get(target, property) {
+                    getLogger(target, property)
+                },
+                set(target, property, value) {
+                    setBind(value, property)
+                }
+            }
+            return new Proxy(obj, handler);
+        }
+
+        let obj = { a: 1 };
+        let p = onWatch(
+            obj,
+            (target, property) => {
+                console.log(`${property} = ${target[property]}`)
+            },
+            (v, property) => {
+                console.log(v,property)
+                console.log(`${property}修改成 ${v}`)
+            },
+        )
+        console.log(p.a)
+        p.a = 2;
+
+    </script>
+</body>
+
+</html>

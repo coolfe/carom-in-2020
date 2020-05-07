@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        Function.prototype.myBind = function(context) {
+            if (typeof this !== 'function') {
+                throw new TypeError('error')
+            }
+            const _this = this;
+            const args = [...arguments].slice(1);
+
+            return function() {
+                return _this.apply(context, args.concat(...arguments))
+            }
+        }
+
+        // demo
+            function Product(name, price) {
+                this.name = name;
+                this.price = price;
+            }
+
+            function Food(name, price) {
+                Product.bind(this, name, price);
+            }
+            const res = new Food('cheese', 5)();
+            console.log(res);
+    </script>
+</body>
+</html>

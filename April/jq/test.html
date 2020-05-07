@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="a">111</div>
+    <script src="./jq.core.js"></script>
+    <script src="./jq.util.js"></script>
+    <script src="./jq.event.js"></script>
+    <script>
+        let p = {};
+        $.extend({
+            gender: 'abc',
+            age: 18
+        })
+        $.extend(p, {a: 100, b:200})
+        console.dir($,p);
+        $.fn.extend({
+            a() {},
+            b:100,
+            c() {}
+        })
+        $.fn.extend(p, {aaa:100}, {bbb:200})
+        console.log($.fn, p)
+
+        $('div').on('click', function() {
+            console.log('aaa')
+        })
+    </script>
+</body>
+</html>

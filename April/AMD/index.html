@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="user">user 模块</button>
+    <button id="car">car 模块</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+    <script>
+        require(['./modules/user.js', './modules/cart.js'], function(user,car) {
+            // console.log('home')
+            let userBtn = document.querySelector('#user');
+            userBtn.onclick = function() {
+                user();
+            }
+
+            let carBtn = document.querySelector('#car');
+            carBtn.onclick = function () {
+                car();
+            }
+        })
+    </script>
+</body>
+</html>

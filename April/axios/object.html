@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        Vue.prototype.$axios = axios;
+        let App = {
+            template: `<div><button @click="sendAjax">发送请求</button></div>`,
+            methods: {
+                sendAjax() {
+                    this.$axios.defaults.baseURL = 'http://127.0.0.1:8888/';
+                    this.$axios.get('', {
+                        params: {
+                            id: 1
+                        },
+                        transformResponse: [(data) => {
+                            console.log(data, '000');
+                            data = JSON.parse(data);
+                            console.log(data,'111');
+                            return data;
+                        }]
+                    }).then(res => {
+                        console.log(res);
+                    }).catch(err => {
+                        console.log(err);
+                    });
+
+                    this.$axios.post('add', {
+                        firstName: 'coolfe'
+                    }, {
+                        transformRequest: [(data) => {
+                            console.log(data,'33');
+                            return data;
+                        }]
+                    }).then(res => {
+                        console.log(res);
+                    }).catch(err => {
+                        console.log(err);
+                    })
+                }
+            }
+        }
+        new Vue({
+            el: '#app',
+            template: `<App />`,
+            components: {
+                App
+            }
+        })
+    </script>
+</body>
+
+</html>
