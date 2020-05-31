@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let a = {},
+            b = '0',
+            c = 0;
+        a[b] = '1';
+        // 属性值不能重复，数字属性名 == 字符
+        a[c] = '2';
+        console.log(a[b]); // 2
+
+        let a1 = {},
+            b1 = Symbol('1'),
+            c1 = Symbol('1');
+        a1[b1] = '1';
+        a1[c1] = '2';
+        // Symbol 创建一个唯一的值
+        console.log(a1[b1]); // 1
+
+        let a2 = {},
+            b2 = { n: '1' },
+            c2 = { m: '2' };
+        // 对象属性名会转化成 [object Object]
+        a2[b2] = '1';
+        a2[c2] = '2';
+        console.log(a2[b2]); // '2'
+    </script>
+</body>
+
+</html>

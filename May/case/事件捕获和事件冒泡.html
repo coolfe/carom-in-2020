@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件捕获和事件冒泡</title>
+    <style>
+        div {
+            margin: 0 auto;
+        }
+        .grandma {
+            width: 600px;
+            height: 300px;
+            background:gray;
+            
+        }
+        .mother {
+            width: 300px;
+            height: 150px;
+            background:green
+        }
+        .daughter {
+            width: 150px;
+            height: 75px;
+            background:hotpink
+        }
+        .baby{
+            width: 75px;
+            height: 35px;
+            background:lightblue
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 点击 baby 会输出什么结果 -->
+    <div class="grandma">grandma
+        <div class="mother">mother
+            <div class="daughter">daughter
+                <div class="baby">baby</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let grandma = document.querySelector('.grandma');
+        let mother = document.querySelector('.mother');
+        let daughter = document.querySelector('.daughter');
+        let baby = document.querySelector('.baby');
+
+        function logName() {
+            console.log('我是', this.className);
+        }
+
+        // 捕获会比冒泡优先 捕获先触发顶端元素，冒泡先触发底端元素
+        baby.addEventListener('click', logName, false);
+        daughter.addEventListener('click', logName, true);
+        mother.addEventListener('click', logName, true);
+        grandma.addEventListener('click', logName, false);
+
+        // log mother daughter baby grandma
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function getDays(year, month) {
+            let date = new Date(year, month, 0);
+            return date.getDate();
+        }
+        document.write(`2020年五月有 ${getDays(2020, 5)} 天`);
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>背面不可见</title>
+    <style>
+        p {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 10px solid blue;
+        }
+
+        .p1 {
+            background: red;
+            backface-visibility: hidden;
+            transform: rotateY(90deg);
+        }
+
+        .p2 {
+            background: green;
+            backface-visibility: visible;
+            transform: translate3d(0, 20px, 0) rotate(45deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p class="p1">1</p>
+        <p class="p2">2</p>
+    </div>
+</body>
+
+</html>

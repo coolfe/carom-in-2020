@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1、输出 下面的 this
+
+        // var myNumber = {
+        //     value: 1,
+        //     add: function(i) {
+        //         console.log(this,'add') // 因为是方法调用：myNumber
+        //         var helper = function (i) {
+        //             console.log(this,'helper'); // 因为是函数调用：Window
+        //             this.value += i; 
+        //         }
+        //         helper(i);
+        //     }
+        // }
+
+        // myNumber.add(1);
+
+        // 2、正确输出 helper 的 value
+        var myNumber = {
+            value: 1,
+            add: function(i) {s
+                const that = this;
+                var helper = function (j) {
+                    that.value += j; 
+                    console.log(that.value)
+                };
+                helper(2)
+            }
+        }
+        myNumber.add(1);
+    </script>
+</body>
+</html>

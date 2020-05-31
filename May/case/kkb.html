@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // var Factory = function() {
+        //     this.a = 'a';
+        //     this.b = 'b';
+        //     this.c = {
+        //         a: 'a+',
+        //         b: () => this.a
+        //     }
+        // };
+        // console.log(new Factory().c.b())
+
+        // var a;
+        // if(a) {
+        //     let a = 20;
+
+        // } else {
+        //     let a = 30
+        // }
+        // console.log(a)
+
+        let data = [5,10,15,20] 
+        let rs = data.map(v => v*2).filter(v => v >= 20).reduce((a,b) => a+b);
+        console.log(rs)
+    </script>
+</body>
+</html>

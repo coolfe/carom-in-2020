@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js垂直水平居中</title>
+    <style>
+        #box {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        
+    </div>
+    <script>
+        let HTML = document.documentElement;
+        let box = document.querySelector('#box');
+        let winW = HTML.clientWidth;
+        let winH = HTML.clientHeight;
+        let boxW = box.offsetWidth;
+        let boxH = box.offsetHeight;
+
+
+        box.style.left = (winW - boxW) / 2 + 'px';
+        box.style.top = (winH - boxH) / 2 + 'px';
+    </script>
+</body>
+</html>

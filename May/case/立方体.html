@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>立方体</title>
+    <style>
+        body {
+            perspective: 1000px;
+        }
+        p {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #000;
+            position: absolute;
+            top: 200px;
+            left: 200px;
+            transition: transform 1s, background .5s;
+        }
+        .cube {
+            transform-style: preserve-3d;
+            transform: rotateY(-30deg) rotateX(57deg);
+        }
+
+        .cube:hover .front {
+            background: orchid;
+        }
+        .cube:hover .behind {
+            background: yellow;
+        }
+        .cube:hover .left {
+            background: teal;
+        }
+        .cube:hover .right {
+            background: tomato;
+        }
+        .cube:hover .top {
+            background: gray;
+        }
+        .cube:hover .bottom {
+            background: yellowgreen;
+        }
+
+
+        .ani .front {
+            transform: translateZ(50px);
+        }
+        .ani .behind {
+            transform: translateZ(-50px);
+        }
+        
+        .ani .left {
+            transform: rotateY(-90deg) translateZ(50px);
+        }
+        .ani .right {
+            transform: rotateY(90deg) translateZ(50px);
+        }
+
+        .ani .top {
+            transform: rotateX(-90deg) translateZ(50px);
+        }
+        .ani .bottom {
+            transform: rotateX(90deg) translateZ(50px);
+        }
+
+        .ani {
+            animation: rotateAni 3s infinite alternate;
+        }
+
+        @keyframes rotateAni {
+             100% {
+                 transform: rotate3d(1,1,0,360deg);
+             }
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div class="cube ani">
+        <p class="front">前</p>
+        <p class="behind">后</p>
+        <p class="left">左</p>
+        <p class="right">右</p>
+        <p class="top">上</p>
+        <p class="bottom">下</p>
+    </div>
+</body>
+</html>

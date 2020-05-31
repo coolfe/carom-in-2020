@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // test 其实是返回是无参数的函数
+        // var test = (function (i) {
+        //     return function () {
+        //         // alert 会返回 toString() 的结果
+        //         alert(i *= 2);
+        //     }
+        // })(2)
+
+        // test(5); // '4'
+
+
+        // 这里的 a b 是没用的
+        var a = 0,
+            b = 0;
+        function A(a) {
+            // 这个 A 重写了全局的 A
+            // 里面参数有使用 a ，所以 a 不能释放，形成了一个 闭包
+            A = function (b) {
+                alert(a + b++);
+            }
+            // 这里输出 1 以后，会把 a++ 变成 2
+            alert(a++); 
+        }
+
+        // 第一次进去 a = 1，后来 a++ 变成了 2
+        A(1); // 1
+        // 第二次直接进去 里面的 A 函数，所以 b = 2
+        A(2) // 4
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义播放器</title>
+    <style>
+        #box {
+            width: 700px;
+        }
+
+        #video {
+            outline: none;
+        }
+
+        .video-control {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <video src="./game.mp4" id="video"></video>
+        <div class="video-control">
+            <button id="playOrPause">播放</button>
+            <progress id="video-progress" value="0" max="100"></progress>
+            <div id="video-time">
+                <span id="current-time">00:00</span>
+                /
+                <span id="duration-time">00:00</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        const video = document.querySelector('#video');
+        const btn = document.querySelector('#playOrPause');
+        const progress = document.querySelector('#video-progress');
+        const current = document.querySelector('#current-time');
+        const duration = document.querySelector('#duration-time');
+
+        let videoState = 'PAUSE';
+
+        function initVideo() {
+            if (!video) {
+                throw Error('没有找到播放资源')
+            }
+        }
+
+        function formateTime(timeStamp) {
+            let h = Math.floor(timeStamp / 3600);
+            let m = Math.floor(timeStamp / 60 % 60);
+            let s = Math.floor(timeStamp % 60)
+
+            h = h > 0 ? `${h}:` : '';
+            m = m > 10 ? m : `0${m}`;
+            s = m > 10 ? s : `0${s}`;
+
+            return `${h}${m}:${s}`
+        }
+
+        window.onload = function () {
+            initVideo();
+        }
+
+        btn.addEventListener('click', () => {
+            if (videoState === 'PAUSE' || videoState === 'ENDED') {
+                video.play();
+                btn.innerHTML = "暂停";
+            } else {
+                video.pause();
+                btn.innerHTML = "播放";
+            }
+        })
+
+        video.addEventListener('play', () => {
+            videoState = 'PLAY';
+        })
+        video.addEventListener('pause', () => {
+            videoState = 'PAUSE';
+        })
+        video.addEventListener('ended', () => {
+            videoState = 'ENDED';
+        })
+
+        video.addEventListener('durationchange', (e) => {
+            duration.innerHTML = formateTime(video.duration);
+        })
+        video.addEventListener('timeupdate', (e) => {
+            const currentTime = video.currentTime;
+            const duration = video.duration;
+
+            current.innerHTML = formateTime(currentTime);
+            progress.setAttribute('value', (currentTime / duration * 100))
+        })
+
+    </script>
+</body>
+
+</html>

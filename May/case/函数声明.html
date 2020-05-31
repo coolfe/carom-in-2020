@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数声明</title>
+</head>
+
+<body>
+    <script>
+        // 101 11 11
+        function add1(i) {
+            console.log('声明', i + 1);
+        }
+        add1(1);
+
+        var add1 = function (i) {
+            console.log('表达式', i + 10);
+
+        }
+        add1(1);
+
+        function add1(i) {
+            console.log('声明', i + 100);
+        }
+        add1(1);
+
+
+        // 预解析如下
+
+        // var add1; 
+        // function add1(i) {
+        //     console.log("函数声明：" + (i + 100));
+        // }
+        // add1(1);
+        // add1 = function (i) {
+        //     console.log("函数表达式：" + (i + 10));
+        // }
+        // add1(1);
+        // add1(1);
+
+    </script>
+</body>
+
+</html>

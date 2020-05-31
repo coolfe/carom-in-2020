@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        #box {
+            width: 1180px;
+            margin: 0 auto;
+            height: 100%;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .other {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 98;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .center {
+            margin-left: 300px;
+            width: 580px;
+            height: 100%;
+            background-color: moccasin;
+        }
+
+        .left,
+        .right {
+            width: 280px;
+            height: 1000px;
+        }
+
+        .left {
+            float: left;
+            margin-right: 580px;
+            background: navy;
+        }
+
+        .right {
+            float: right;
+            background-color: palegreen;
+        }
+
+        @media screen and (max-width: 980px) {
+            .right {
+                float: left;
+                margin-right: 580px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div class="center"></div>
+        <div class="other">
+            <div class="left"></div>
+            <div class="right"></div>
+        </div>
+    </div>
+</body>
+
+</html>

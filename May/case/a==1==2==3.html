@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // A
+        // var a = {
+        //     i: 0,
+        //     toString() {
+        //         return ++this.i;
+        //     }
+        // }
+
+        // B 数据劫持
+        // var i = 0;
+        // Object.defineProperty(window, 'a', {
+        //     get() {
+        //         return ++i;
+        //     }
+        // })
+
+        // C
+        var a = [1,2,3];
+        a.toString = a.shift;
+
+
+        
+        if (a == 1 && a == 2 && a == 3) {
+            console.log('条件成功');
+        }
+    </script>
+</body>
+
+</html>

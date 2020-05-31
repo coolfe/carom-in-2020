@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vconsole</title>
+    <style>
+        body {
+            background: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div>vconsole</div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./vconsole.min.js"></script>
+    <script>
+        let vConsole = new VConsole();
+        console.log('This is a vconsole demo');
+        axios.get('https://jsonplaceholder.typicode.com/posts/1').then(function (res) {
+            console.log(res)
+        })
+    </script>
+</body>
+
+</html>

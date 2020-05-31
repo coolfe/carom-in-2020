@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>curry</title>
+</head>
+
+<body>
+    <script>
+        // refresh 函数实现通过 ajax 请求更新页面上的相关模块的数据。 
+        function refresh(url, callback) {
+            // ajax_get 实现一个 ajax get 请求，请求成功后回调 callback 函数
+            ajax_get(url, callback);
+        }
+        // 继续，如果新闻模块需要继续拆分成 “社会” 新闻，“娱乐” 新闻，那我们柯里化的 update 函数该怎么写呢？可以这样写:
+        function update(target) {
+            console.log(target); // 'news'
+            return function (type) { // 返回一个接受其余参数的函数
+                console.log(type); // 'society'
+                return function (data) { // 返回一个接受其余参数并最终更新页面显示的函数
+                    console.log(data)
+                }
+            }
+        }
+
+        update("news")("society")
+        // 更新页面就可以写成这样
+        // refresh("action.do?target=news&type=society", update("news")("society"));
+        // refresh("action.do?target=news&type=entertainment", update("news")("entertainment"));
+    </script>
+</body>
+
+</html>

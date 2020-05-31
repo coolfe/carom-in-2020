@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>closure</title>
+</head>
+
+<body>
+    <script>
+        // 不适用闭包
+        function sum(i, j) {
+            var add = function (i, j) {
+                return i + j;
+            }
+            return add(i, j);
+        }
+        var startTime = new Date();
+        for (var i = 0; i < 10000000; i++) {
+            sum(1, 1)
+        }
+        var endTime = new Date();
+        console.log(endTime - startTime, '不使用闭包');
+
+
+        // 使用闭包
+        var sum1 = (function () {
+            var add = function (i, j) {
+                return i + j;
+            }
+            return function (i, j) {
+                add(i, j)
+            }
+        })();
+
+
+        var startTime = new Date();
+        for (var i = 0; i < 10000000; i++) {
+            sum1(1, 1)
+        }
+        var endTime = new Date();
+        console.log(endTime - startTime, '使用闭包');
+    </script>
+</body>
+
+</html>
