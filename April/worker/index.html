@@ -7,13 +7,13 @@
 </head>
 <body>
     <script>
-        let worker = new Worker('./worker.js');
-        worker.postMessage(40);
-        worker.onmessage = function(event) {
+        let worker = new Worker('./worker.js'); // 新建一个 Worker 线程
+        worker.postMessage(40); // 主线程传给 Worker 的数据
+        worker.onmessage = function(event) { // 指定监听函数，接收子线程发回来的消息
             let data = event.data;
             console.log(data)
         }
-        worker.onerror = function(event) {
+        worker.onerror = function(event) { // 监听 Worker 是否发生错误
             console.dir(event)
         }
     </script>
