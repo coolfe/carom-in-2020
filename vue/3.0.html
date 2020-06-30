@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        名字:<span id="name"></span>
+        <br>
+        <input type="text" id="inputName">
+    </div>
+    <script>
+
+        const name = document.querySelector('#name');
+            const inputName = document.querySelector('#inputName');
+
+
+        let obj = {};
+        obj =  new Proxy(obj, {
+            get(target,prop) {
+                return target[prop];
+            },
+            set(target,prop, val) {
+                target[prop] = val;
+                observer();
+            }
+        })
+
+        function observer() {
+                name.innerHTML = obj.name;
+                inputName.value = obj.name;
+            }
+
+            inputName.oninput = function () {
+                obj.name = this.value;
+            }
+    </script>
+</body>
+</html>

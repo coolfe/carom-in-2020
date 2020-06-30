@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box">
+        <span id="name"></span>
+        <br>
+        <input type="text" id="inputName">
+    </div>
+    <script>
+        // 双向数据流的缺点
+        // 1、对原始数据克隆
+        // 2、需要分别给对象中的每一个属性设置监听
+        const name = document.querySelector('#name');
+        const inputName = document.querySelector('#inputName');
+
+
+        let obj = {
+            name: ''
+        }
+        let newObj = JSON.parse(JSON.stringify(obj));
+        Object.defineProperty(obj, 'name', {
+            get() {
+                return newObj.name
+            },
+            set(val) {
+                if (val == newObj.name) return;
+                newObj.name = val;
+                observer();
+            }
+        })
+
+        function observer() {
+            name.innerHTML = obj.name;
+            inputName.value = obj.name;
+        }
+
+        inputName.oninput = function () {
+            obj.name = this.value;
+        }
+    </script>
+</body>
+
+</html>

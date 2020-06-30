@@ -8,7 +8,7 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: {
     main: './src/index.js',
-    // sub: './src/index.js'
+    sub: './src/index.js'
   },
 
   output: {

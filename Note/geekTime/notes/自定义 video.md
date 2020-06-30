@@ -1,0 +1,15 @@
+### 自定义 video
+- 事件
+  - play 播放调用
+  - pause 暂停调用
+  - ended 结束调用
+  - durationchange 视频加载完成，时长由 NaN 变成实际时长调用
+  - timeupdate 播放位置发生更改时调用
+- 方法
+  - play 视频播放
+  - pause 视频暂停
+- 属性
+  - controls 设置是否显示控件
+  - currentTime 返回视频中的当前位置(s)
+  - duration 返回当前视频的长度(s)
+- 当前播放进度条长度= 当前播放时间 / 总时长 
